@@ -19,12 +19,18 @@ const plugins =
       [{
           from: path.resolve("src/manifest.production.json"),
           to: `${path.resolve("dist")}/manifest.json`
-      }]
+      }, {
+              from: path.resolve("src/images/logo.png"),
+              to: `${path.resolve("dist")}/images/logo.png`
+          }]
       :
       [{
           from: path.resolve("src/manifest.development.json"),
           to: `${path.resolve("dist")}/manifest.json`
-      }];
+      }, {
+              from: path.resolve("src/images/logo.png"),
+              to: `${path.resolve("dist")}/images/logo.png`
+          }];
 
 module.exports = {
     pages: pagesObj,
@@ -44,28 +50,5 @@ module.exports = {
             filename: 'css/[name].css'
             // chunkFilename: 'css/[name].css'
         }
-    },
-    chainWebpack: config => {
-        // 查看打包组件大小情况
-        if (process.env.npm_config_report) {
-            // 在运行命令中添加 --report参数运行， 如：npm run build --report
-            config
-                .plugin('webpack-bundle-analyzer')
-                .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
-            config
-                .module
-                .rule("images")
-                .test(/\.(jpg|png|gif)$/)
-                .use("url-loader")
-                .loader("url-loader")
-                .options({
-                    limit:10,
-                    publicPath: 'assert' ,
-                    outputPath: 'assert',
-                    name: '[name].[ext]',
-                })
-                .end()
-        }
     }
-
 };

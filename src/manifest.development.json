@@ -1,10 +1,17 @@
 {
     "manifest_version": 2,
-    "name": "chrome-ext",
-    "description": "chrome extension",
+    "name": "SPS Monitor Tools",
+    "description": "SPS Monitor Tools",
     "version": "0.0.1",
+    "icons": {
+        "48": "images/logo.png"
+    },
     "options_page": "options.html",
     "browser_action": {
+        "default_icon": {
+            "48": "images/logo.png"
+        },
+        "default_title": "SPS Monitor Tools",
         "default_popup": "popup.html"
     },
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
