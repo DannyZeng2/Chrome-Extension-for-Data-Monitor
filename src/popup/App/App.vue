@@ -75,8 +75,8 @@
         <el-divider>Clear DB Cache</el-divider>
         <el-row>
           <el-col :span="15">
-            <el-select size="mini" v-model="value" clearable placeholder="Please select env">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            <el-select size="mini" v-model="dbEnv" clearable placeholder="Please select env">
+              <el-option v-for="item in clearCacheOptions" :key="item.dbEnv" :label="item.label" :value="item.dbEnv"></el-option>
             </el-select>
           </el-col>
           <el-col :span="9"><el-button class="trigger-btn" type="primary" size="mini">Clear</el-button></el-col>
@@ -100,40 +100,30 @@ export default {
     name: 'app',
     data() {
         return {
-          options: [{
-            value: 'qa1',
-              label: 'QA1'
-          }, {
-            value: 'qa1',
-            label: 'QA2'
-          }, {
-            value: 'qa1',
-            label: 'QA3'
-          }, {
-            value: 'qa1',
-            label: 'QA4'
-          }, {
-            value: 'oocluat',
-            label: 'OOCL UAT'
-          }, {
-            value: 'coscouat',
-            label: 'COSCO UAT'
-          }, {
-            value: 'ooclpp',
-            label: 'OOCL PP'
-          }, {
-            value: 'coscopp',
-            label: 'COSCO PP'
-          }, {
-            value: 'ooclprd',
-            label: 'OOCL PRD'
-          }, {
-            value: 'coscoprd',
-            label: 'COSCO PRD'
-          }],
-          value: '',
-          activeName: 'sps',
-          env:['QA1','QA2','QA3','QA4','COSCO UAT','OOCL PP','COSCO PP','OOCL PROD','COSCO PROD']
+            options: [{value: 'qa1', label: 'QA1'},
+                {value: 'qa2', label: 'QA2'},
+                {value: 'qa3', label: 'QA3'},
+                {value: 'qa4', label: 'QA4'},
+                {value: 'oocluat', label: 'OOCL UAT'},
+                {value: 'coscouat', label: 'COSCO UAT'},
+                {value: 'ooclpp', label: 'OOCL PP'},
+                {value: 'coscopp', label: 'COSCO PP'},
+                {value: 'ooclprd', label: 'OOCL PRD'},
+                {value: 'coscoprd', label: 'COSCO PRD'}],
+            clearCacheOptions: [{dbEnv: 'qa1', label: 'QA1'},
+                {dbEnv: 'qa2', label: 'QA2'},
+                {dbEnv: 'qa3', label: 'QA3'},
+                {dbEnv: 'qa4', label: 'QA4'},
+                {dbEnv: 'oocluat', label: 'OOCL UAT'},
+                {dbEnv: 'coscouat', label: 'COSCO UAT'},
+                {dbEnv: 'ooclpp', label: 'OOCL PP'},
+                {dbEnv: 'coscopp', label: 'COSCO PP'},
+                {dbEnv: 'ooclprd', label: 'OOCL PRD'},
+                {dbEnv: 'coscoprd', label: 'COSCO PRD'}],
+            value: '',
+            dbEnv: '',
+            activeName: 'sps',
+            env:['QA1','QA2','QA3','QA4','COSCO UAT','OOCL PP','COSCO PP','OOCL PROD','COSCO PROD']
         };
     },
     methods:{
@@ -185,7 +175,7 @@ export default {
     border-radius:5px;
     font-size: xx-small;
   }
-  .status:hover{
+  .dom-status:hover,.prs-status:hover{
     background-color: #5fc25f;
   }
   .tool-button{
