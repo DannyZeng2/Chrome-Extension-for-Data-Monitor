@@ -6,11 +6,11 @@
         <div v-for="item in this.env" :key="item.message">
           <div><span class="prs-version">{{ item }} PRS</span><span class="dom-version">{{ item }} DOM</span></div>
           <div>
-            <span class="status">
+            <span class="prs-status">
               <div class="update-version">24.9.0.2.1557</div>
               <div class="update-time">2021-03-12 19:09</div>
             </span>
-            <span class="status">
+            <span class="dom-status">
               <div class="update-version">24.9.0.2.1557</div>
               <div class="update-time">2021-03-12 19:09</div>
             </span>
@@ -23,11 +23,11 @@
        <div v-for="item in this.env" :key="item.message">
          <div><span class="prs-version">{{ item }} PRS</span><span class="dom-version">{{ item }} DOM</span></div>
          <div>
-           <span class="status">
+           <span class="prs-status">
              <div class="update-version">24.9.0.2.1557</div>
              <div class="update-time">2021-03-12 19:09</div>
            </span>
-           <span class="status">
+           <span class="dom-status">
              <div class="update-version">24.9.0.2.1557</div>
              <div class="update-time">2021-03-12 19:09</div>
            </span>
@@ -40,11 +40,11 @@
         <div v-for="item in this.env" :key="item.message">
           <div><span class="prs-version">{{ item }} PRS</span><span class="dom-version">{{ item }} DOM</span></div>
           <div>
-            <span class="status">
+            <span class="prs-status">
               <div class="update-version">24.9.0.2.1557</div>
               <div class="update-time">2021-03-12 19:09</div>
             </span>
-            <span class="status">
+            <span class="dom-status">
               <div class="update-version">24.9.0.2.1557</div>
               <div class="update-time">2021-03-12 19:09</div>
             </span>
@@ -52,7 +52,7 @@
         </div>
       </el-tab-pane>
       <!-- Other Tools -->
-      <el-tab-pane label="tools" name="tools" style="padding-left:10px;height: 450px ">
+      <el-tab-pane label="tools" name="tools" style="padding-left:10px;height: 510px ">
         <el-button-group>
           <el-button class="tool-button" type="primary" size="mini">Clear Mask</el-button>
           <el-button class="tool-button" type="primary" size="mini">Iris Debug</el-button>
@@ -61,13 +61,8 @@
           <el-button id="sps-wiki" class="tool-button" type="primary" size="mini">SPS Wiki</el-button>
           <el-button id="sps-kanban" class="tool-button" type="primary" size="mini">SPS Kanban</el-button>
         </el-button-group>
-        <el-divider>Open Story</el-divider>
-        <el-row>
-          <el-col :span="15"><el-input  size="mini" v-model="input" placeholder="Please input story No."></el-input></el-col>
-          <el-col :span="9"><el-button class="trigger-btn" type="primary" size="mini">Go</el-button></el-col>
-        </el-row>
 
-        <el-divider>Fly to QA/PP</el-divider>
+        <el-divider>Fly To QA/PP</el-divider>
         <el-row>
           <el-col :span="15">
             <el-select size="mini" v-model="value" clearable placeholder="Please select env">
@@ -76,6 +71,23 @@
           </el-col>
           <el-col :span="9"><el-button class="trigger-btn" type="primary" size="mini">Go</el-button></el-col>
         </el-row>
+
+        <el-divider>Clear DB Cache</el-divider>
+        <el-row>
+          <el-col :span="15">
+            <el-select size="mini" v-model="value" clearable placeholder="Please select env">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="9"><el-button class="trigger-btn" type="primary" size="mini">Clear</el-button></el-col>
+        </el-row>
+
+        <el-divider>Open Story</el-divider>
+        <el-row>
+          <el-col :span="15"><el-input  size="mini" v-model="input" placeholder="Please input story No."></el-input></el-col>
+          <el-col :span="9"><el-button class="trigger-btn" type="primary" size="mini">Open</el-button></el-col>
+        </el-row>
+
       </el-tab-pane>
     </el-tabs>
 
@@ -89,23 +101,35 @@ export default {
     data() {
         return {
           options: [{
-            value: '选项1',
+            value: 'qa1',
               label: 'QA1'
           }, {
-            value: '选项2',
+            value: 'qa1',
             label: 'QA2'
           }, {
-            value: '选项3',
+            value: 'qa1',
             label: 'QA3'
           }, {
-            value: '选项4',
+            value: 'qa1',
             label: 'QA4'
           }, {
-            value: '选项5',
+            value: 'oocluat',
+            label: 'OOCL UAT'
+          }, {
+            value: 'coscouat',
+            label: 'COSCO UAT'
+          }, {
+            value: 'ooclpp',
             label: 'OOCL PP'
           }, {
-            value: '选项5',
+            value: 'coscopp',
             label: 'COSCO PP'
+          }, {
+            value: 'ooclprd',
+            label: 'OOCL PRD'
+          }, {
+            value: 'coscoprd',
+            label: 'COSCO PRD'
           }],
           value: '',
           activeName: 'sps',
@@ -119,9 +143,10 @@ export default {
 
 <style>
   #main {
-    width: 320px;
+    width: 300px;
     padding-bottom: 10px;
     padding-left: 15px;
+    padding-right: 15px;
   }
   .prs-version{
     margin-left: 15px;
@@ -142,10 +167,19 @@ export default {
     margin-top: 3px;
     margin-left: 20px;
   }
-  .status{
+  .prs-status{
     width: 135px;
     height: 40px;
     margin-right: 25px;
+    background: #80ec80;
+    display:inline-block;
+    border-radius:5px;
+    font-size: xx-small;
+  }
+  .dom-status{
+    width: 135px;
+    height: 40px;
+    margin-left: 5px;
     background: #80ec80;
     display:inline-block;
     border-radius:5px;
